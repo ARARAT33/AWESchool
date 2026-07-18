@@ -1,0 +1,10 @@
+{
+  "name": "AWESchool",
+  "description": "AWESchool - Գերհզոր հարթակ Monaco IDE-ով, WebRTC P2P մեսենջերով, AI Token Saver-ով և տեսախցիկի վրա հիմնված ավտոմատ լուսավորության համակարգով:",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
