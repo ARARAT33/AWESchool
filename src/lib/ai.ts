@@ -196,8 +196,38 @@ async function callGemini(config: ApiKeyConfig, systemInstruction: string, histo
   
   // If no client-side API key is configured, automatically fallback to our server-side API proxy
   // which safely uses process.env.GEMINI_API_KEY.
+  // If no client-side API key is configured, automatically fallback to our server-side API proxy
+  // which safely uses process.env.GEMINI_API_KEY.
   if (!config.apiKey) {
-    throw new Error('API Key is missing for ' + config.provider);
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          systemInstruction,
+          history,
+          prompt,
+          model
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        const message = errData.error?.message || response.statusText || 'Unknown server error';
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+      if (!data.text) {
+        throw new Error('Empty response received from server-side Gemini proxy.');
+      }
+      
+      return data.text;
+    } catch (err: any) {
+      throw new Error(`Server Proxy: ${err.message}`);
+    }
   }
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.apiKey}`;
