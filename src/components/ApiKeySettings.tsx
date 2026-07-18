@@ -230,7 +230,7 @@ export default function ApiKeySettings({ configs, onSaveConfigs }: ApiKeySetting
               type="text"
               value={modelName}
               onChange={(e) => setModelName(e.target.value)}
-              placeholder="Օրինակ՝ gemini-3.5-flash"
+              placeholder="e.g. gemini-1.5-flash"
               required
               className="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-all text-white placeholder-slate-600 font-mono"
             />

@@ -145,7 +145,7 @@ export default function CodeWorkspace({
         name: newItemName.trim(),
         path: fullPath,
         language: lang,
-        content: `// Ֆայլ՝ ${fullPath}\n\nexport function init() {\n  console.log("Ինիցիալիզացված ${newItemName}");\n}`
+        content: `// File: ${fullPath}\n\nexport function init() {\n  console.log("Initialized ${newItemName}");\n}`
       };
       setFiles(prev => [...prev, newFile]);
       setSelectedFileId(newFile.id);
@@ -172,7 +172,7 @@ export default function CodeWorkspace({
     const fileToDelete = files.find(f => f.id === id);
     if (!fileToDelete) return;
 
-    if (window.confirm(`Ցանկանու՞մ եք ջնջել ${fileToDelete.path} ֆայլը:`)) {
+    if (window.confirm(`Do you want to delete the file ${fileToDelete.path}?`)) {
       setFiles(prev => prev.filter(f => f.id !== id));
       addTerminalLog(`rm: Removed file ${fileToDelete.path}`);
       if (selectedFileId === id) {
@@ -190,7 +190,7 @@ export default function CodeWorkspace({
   // Delete folder (and all its sub-files/folders)
   const deleteFolder = (folderPath: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (window.confirm(`Ցանկանու՞մ եք ջնջել ${folderPath} թղթապանակը և դրա ողջ պարունակությունը:`)) {
+    if (window.confirm(`Do you want to delete the folder ${folderPath} and all its contents?`)) {
       setFolders(prev => prev.filter(fol => fol.path !== folderPath && !fol.path.startsWith(folderPath + '/')));
       setFiles(prev => prev.filter(f => !f.path.startsWith(folderPath + '/')));
       addTerminalLog(`rm -rf: Removed folder ${folderPath}`);
@@ -220,7 +220,7 @@ export default function CodeWorkspace({
       addTerminalLog('zip: Workspace zipped successfully. Download triggered!');
     } catch (err: any) {
       console.error(err);
-      alert('Սխալ ZIP արխիվացման ժամանակ: ' + err.message);
+      alert('Error during ZIP archiving: ' + err.message);
     }
   };
 
@@ -229,7 +229,7 @@ export default function CodeWorkspace({
     setLogs([]);
     const mainHtml = files.find(f => f.path === 'index.html');
     if (!mainHtml) {
-      addLog('ՍԽԱԼ. index.html ֆայլը չգտնվեց:');
+      addLog('ERROR: index.html file not found.');
       return;
     }
 
@@ -643,14 +643,14 @@ export default function CodeWorkspace({
                         setNewItemParentPath(fol.path);
                       }}
                       className="p-0.5 hover:bg-slate-700 rounded text-cyan-400"
-                      title="Ստեղծել ֆայլ"
+                      title="Create file"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
                     <button 
                       onClick={(e) => deleteFolder(fol.path, e)}
                       className="p-0.5 hover:bg-slate-700 rounded text-red-400"
-                      title="Ջնջել թղթապանակը"
+                      title="Delete folder"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
@@ -677,7 +677,7 @@ export default function CodeWorkspace({
                         <button 
                           onClick={(e) => deleteFile(subF.id, e)}
                           className="opacity-0 group-hover:opacity-100 p-0.5 hover:bg-slate-700 rounded text-red-400"
-                          title="Ջնջել ֆայլը"
+                          title="Delete file"
                         >
                           <Trash2 className="w-3 h-3" />
                         </button>
@@ -706,7 +706,7 @@ export default function CodeWorkspace({
                 <button 
                   onClick={(e) => deleteFile(f.id, e)}
                   className="opacity-0 group-hover:opacity-100 p-0.5 hover:bg-slate-700 rounded text-red-400"
-                  title="Ջնջել ֆայլը"
+                  title="Delete file"
                 >
                   <Trash2 className="w-3 h-3" />
                 </button>
@@ -749,7 +749,7 @@ export default function CodeWorkspace({
               ) : (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500">
                   <AlertCircle className="w-12 h-12 text-slate-700 mb-2" />
-                  <span>Ընտրեք կամ ստեղծեք որևէ ֆայլ ձախ ցուցակից</span>
+                  <span>Select or create any file from the left list</span>
                 </div>
               )}
             </div>
@@ -768,7 +768,7 @@ export default function CodeWorkspace({
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center text-slate-500 text-sm">
                   <Monitor className="w-12 h-12 text-slate-700 mb-2" />
-                  <span>Արդյունքի նախադիտումը պատրաստ չէ: Սեղմեք "Աշխատեցնել"</span>
+                  <span>Result preview is not ready. Click "Run"</span>
                 </div>
               )}
 
@@ -776,11 +776,11 @@ export default function CodeWorkspace({
               <div className="h-40 bg-slate-900 border-t border-slate-800/80 p-3 flex flex-col font-mono text-xs">
                 <div className="flex items-center gap-1.5 text-slate-400 font-bold mb-1.5 border-b border-slate-800 pb-1.5 shrink-0">
                   <TerminalIcon className="w-3.5 h-3.5 text-yellow-500" />
-                  <span>Սենդբոքսի Կոնսոլ (Sandbox Console Logs)</span>
+                  <span>Sandbox Console Logs</span>
                 </div>
                 <div className="flex-1 overflow-y-auto space-y-1">
                   {logs.length === 0 ? (
-                    <span className="text-slate-600 italic">Լոգերը դատարկ են...</span>
+                    <span className="text-slate-600 italic">Logs are empty...</span>
                   ) : (
                     logs.map((log, i) => (
                       <div key={i} className={`whitespace-pre-wrap ${
@@ -822,7 +822,7 @@ export default function CodeWorkspace({
                   value={terminalInput}
                   onChange={(e) => setTerminalInput(e.target.value)}
                   className="flex-1 bg-transparent border-none text-white font-mono focus:outline-none placeholder-slate-700"
-                  placeholder="Մուտքագրեք հրաման (օրինակ՝ ls, cat index.html, help...)"
+                  placeholder={"Enter command (e.g. ls, cat index.html, help...)"}
                   autoFocus
                 />
               </form>
@@ -841,7 +841,7 @@ export default function CodeWorkspace({
         <div className="flex gap-2">
           <button
             onClick={() => {
-              if (window.confirm('Վերականգնե՞լ սկզբնական ֆայլերի համակարգը: Սա կջնջի Ձեր ընթացիկ փոփոխությունները:')) {
+              if (window.confirm('Restore original file system? This will delete your current changes.')) {
                 setFiles(DEFAULT_FILES);
                 setFolders(DEFAULT_FOLDERS);
                 setSelectedFileId('f1');
@@ -850,7 +850,7 @@ export default function CodeWorkspace({
               }
             }}
             className="px-2.5 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs text-slate-400 hover:text-white rounded-lg transition-all flex items-center gap-1 cursor-pointer"
-            title="Մաքրել / Վերականգնել Ֆայլային Համակարգը"
+            title="Clear / Restore File System"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
@@ -860,7 +860,7 @@ export default function CodeWorkspace({
             className="px-3 py-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs text-indigo-400 hover:text-indigo-300 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer font-bold"
           >
             <Download className="w-3.5 h-3.5" />
-            ZIP Արտահանում
+            Export ZIP
           </button>
 
           <button
@@ -871,7 +871,7 @@ export default function CodeWorkspace({
             className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 text-white text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/10 cursor-pointer"
           >
             <Play className="w-3.5 h-3.5 fill-white" />
-            Աշխատեցնել
+            Run
           </button>
         </div>
       </div>

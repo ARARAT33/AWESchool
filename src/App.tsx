@@ -599,7 +599,7 @@ export default function App() {
                     <div className="mb-4 bg-amber-500/10 border border-amber-500/20 text-amber-500 px-4 py-3 rounded-xl text-xs flex items-center gap-2 font-sans">
                       <AlertCircle className="w-5 h-5 shrink-0 text-amber-500" />
                       <span>
-                        <strong>Ուշադրություն՝</strong> {t.missingApiKeyNotice}
+                        <strong>Warning:</strong> {t.activeKeysWarning}
                       </span>
                     </div>
                   )}

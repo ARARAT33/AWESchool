@@ -1,0 +1,78 @@
+const fs = require('fs');
+
+const englishKeys = {
+  // AiTeacher
+  explain: "Explain",
+  explainTooltip: "Explain Monaco Editor code",
+  optimize: "Optimize",
+  optimizeTooltip: "Optimize Monaco Editor code",
+  check: "Check",
+  checkTooltip: "Check for errors in Monaco Editor code",
+  test: "Test",
+  testTooltip: "Create interactive test",
+  you: "You",
+  system: "System",
+  aiTeacher: "AI Teacher",
+  searchAttached: "Search data attached:",
+  thinking: "AI Teacher is thinking...",
+  coordinating: "Coordinating tool data and analyzing...",
+  attachedData: "Attached data:",
+  attachTooltip: "Attach Example File (for reading)",
+  searchTooltip: "Search the web",
+  placeholder: "Ask anything or analyze...",
+  pressEnter: "Press Enter to send",
+  openCode: "Open code",
+  hideCode: "Hide code",
+  monacoEmptyExplain: "Monaco Editor is empty, no code to analyze.",
+  monacoEmptyOptimize: "Monaco Editor is empty, no code to optimize.",
+  monacoEmptyCheck: "Monaco Editor is empty, no code to check for errors.",
+  errorPrefix: "🚨 Error: ",
+  errorFallback: "Failed to connect to AI",
+  
+  // TelegramP2P
+  anonymousP2pChats: "Anonymous P2P Chats",
+  noStorageWarning: "No data is stored. Fully local and secure.",
+  myId: "My ID:",
+  copyIdTooltip: "Copy my P2P ID",
+  addPeerHeader: "Connect new peer",
+  peerPlaceholder: "Paste peer's ID...",
+  noActiveConnections: "No active connections.",
+  howToConnectInstructions: "Paste your peer's ID above to start.",
+  peerTitle: "Peer",
+  peerDesc: "Anonymous WebRTC direct text connection.",
+  readyToChat: "Ready to chat...",
+  deleteChatTooltip: "Delete chat",
+  disconnectConfirm: "Do you want to disconnect and delete this anonymous chat history?",
+  ownIdAlert: "You cannot connect to your own ID.",
+  disconnectBtn: "Disconnect",
+  connectionEstablished: "Connection established",
+  connectionEstablishedDesc: "Type something below to send a text message. The chat is fully encrypted.",
+  writeMessage: "Write a message...",
+  welcomeTitle: "Anonymous P2P Chat Room",
+  welcomeDesc: "This is a decentralized WebRTC chat. Enter your peer's P2P ID in the left panel or share your ID with them to establish a direct, secure connection.",
+  howToStart: "How to start",
+  step2: "Or paste your peer's ID on the left and click the '+' button.",
+  step3: "The entire chat takes place only between your devices (E2E Text Chat).",
+  me: "Me",
+  responseSimulation: "P2P response simulation",
+  anonymousSender: "Anonymous",
+  
+  // CodeWorkspace
+  createFile: "Create file",
+  deleteFolderTitle: "Delete folder",
+  deleteFileTitle: "Delete file",
+  selectFileHint: "Select or create any file from the left list",
+  previewNotReady: "Result preview is not ready. Click 'Run'",
+  sandboxConsole: "Sandbox Console Logs",
+  logsEmpty: "Logs are empty...",
+  commandPlaceholder: "Enter command (e.g. ls, cat index.html, help...)",
+  restoreFileSystemConfirm: "Restore original file system? This will delete your current changes.",
+  clearFileSystem: "Clear / Restore File System",
+  exportZip: "Export ZIP",
+  run: "Run"
+};
+
+// I will write a script to replace the Armenian hardcoded strings with English directly for now, 
+// OR I will just inject these into translations.ts. Let's write a script to inject into translations.ts for 'en' only?
+// No, if I add them to TranslationDictionary, I HAVE to add them for ALL languages or TS will error.
+// The easiest way is to just generate the objects for all languages.
